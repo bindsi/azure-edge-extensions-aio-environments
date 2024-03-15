@@ -107,8 +107,17 @@ if [[ -z $(az grafana folder show -n $grafanaName --folder "Footprint Dashboards
   echo "Creating grafana folder for the first time..."
   az grafana folder create -n $grafanaName -g $resourceGroup --title "Footprint Dashboards"
 fi
-dashboardName="Memory Footprint"
-if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$dashboardName']" -o json | jq '.[].id') ]]; then
+clusterDashboardName="Memory Footprint - Cluster"
+hostDashboardName="Memory Footprint - Host"
+if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$clusterDashboardName']" -o json | jq '.[].id') ]]; then
+  az grafana dashboard create \
+    -n $grafanaName \
+    -g $resourceGroup \
+    --title "$hostDashboardName" \
+    --folder "Footprint Dashboards" \
+    --definition $BASEDIR/../monitoring/mem_by_ns.json
+fi
+if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$hostDashboardName']" -o json | jq '.[].id') ]]; then
   echo "Creating grafana dashboard..."
   sed -i "s/##SUBSCRIPTION_ID##/$subscriptionId/g" monitoring/mem_by_ns.json
   sed -i "s/##RESOURCE_GROUP##/$resourceGroup/g" monitoring/mem_by_ns.json
@@ -128,9 +137,9 @@ if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$dashbo
   az grafana dashboard create \
     -n $grafanaName \
     -g $resourceGroup \
-    --title "$dashboardName" \
+    --title "$hostDashboardName" \
     --folder "Footprint Dashboards" \
-    --definition $BASEDIR/../monitoring/mem_by_ns.json
+    --definition $BASEDIR/../monitoring/mem_by_proc.json
 fi
 
 if [[ -z $clusterName || -z $(az connectedk8s show -n $clusterName -g $resourceGroup 2>/dev/null | jq .name) ]]; then
