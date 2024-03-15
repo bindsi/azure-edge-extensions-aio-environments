@@ -1,4 +1,4 @@
-# Optimization for Arc memory footprintview
+# Optimization for Arc memory footprint
 
 This repository sets up the infrastructure to create vhdx images and VMs for the Arc memory footprint investigations.
 Because of the nature of efficiency, customers demand a low memory footprint to save costs in terms of hardware and devices.
