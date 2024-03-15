@@ -113,7 +113,7 @@ if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$cluste
   az grafana dashboard create \
     -n $grafanaName \
     -g $resourceGroup \
-    --title "$hostDashboardName" \
+    --title "$clusterDashboardName" \
     --folder "Footprint Dashboards" \
     --definition $BASEDIR/../monitoring/mem_by_ns.json
 fi
