@@ -10,10 +10,9 @@ Usage(){
   echo "  -m| Azure monitor resource name (required)"
   echo "  -v| Azure VM name (required)"
   echo "  -l| Log analytics workspace name (default: la-footprint)"
-  echo "  -d| Grafana dashboard resource name. Must be globally unique (default: footprint-<random4char>)"
 }
 
-while getopts ":g:m:v:l:d:" opt; do
+while getopts ":g:m:v:l:" opt; do
   case $opt in
     g) resourceGroup=$OPTARG
     ;;
@@ -22,8 +21,6 @@ while getopts ":g:m:v:l:d:" opt; do
     v) vmName=$OPTARG
     ;;
     l) laName=$OPTARG
-    ;;
-    d) grafanaName=$OPTARG
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     exit 1
@@ -57,6 +54,14 @@ if [[ -z $(az vm extension show --name $agent --vm-name $vmName -g $resourceGrou
   az vm extension set --name $agent --publisher Microsoft.Azure.Monitor --vm-name $vmName -g $resourceGroup
 fi
 echo $agent installed.
+
+grafanaName=$(az grafana list --query "[?resourceGroup=='$resourceGroup'].name" -o tsv)
+if [ -z $grafanaName ]; then
+  echo "Error: Grafana resource not found. Please create a Grafana resource first."
+  exit 1
+else
+  echo "Grafana resource ($grafanaName) found. Use existing..."
+fi
 
 hostDashboardName="Memory Footprint - Host"
 if [[ -z $(az grafana dashboard list -n $grafanaName  --query "[?title=='$hostDashboardName']" -o json | jq '.[].id') ]]; then
