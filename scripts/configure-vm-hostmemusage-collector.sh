@@ -13,7 +13,7 @@ Usage(){
   echo "  -d| Grafana dashboard resource name. Must be globally unique (default: footprint-<random4char>)"
 }
 
-while getopts ":g:m:v:l:" opt; do
+while getopts ":g:m:v:l:d:" opt; do
   case $opt in
     g) resourceGroup=$OPTARG
     ;;
