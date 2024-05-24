@@ -93,4 +93,4 @@ module hostDeployment 'host/host.bicep' = {
     autoUpgradeClusterResource: autoUpgradeClusterResource
   }
 }
-output storageAccountName string = 'stagingStorageAccountDeployment'
+output storageAccountName string = storageAccountDeployment.outputs.storageAccountName
