@@ -259,27 +259,5 @@ resource vmHyperVInstall 'Microsoft.Compute/virtualMachines/extensions@2022-03-0
   }
 }
 
-resource vmBootstrap 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
-  parent: vm
-  dependsOn: [
-    vmHyperVInstall
-  ]
-  name: 'Bootstrap'
-  location: location
-  properties: {
-    publisher: 'Microsoft.Compute'
-    type: 'CustomScriptExtension'
-    typeHandlerVersion: '1.10'
-    autoUpgradeMinorVersion: true
-    forceUpdateTag: 'RerunBootstrap'
-    protectedSettings: {
-      fileUris: [
-        uri(templateBaseUrl, 'artifacts/PowerShell/Bootstrap.ps1')
-      ]
-      commandToExecute: 'powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1 -adminUsername ${windowsAdminUsername} -adminPassword ${encodedPassword} -spnClientId ${spnClientId} -spnClientSecret ${spnClientSecret} -spnTenantId ${spnTenantId} -subscriptionId ${subscription().subscriptionId} -spnProviderId ${spnProviderId} -resourceGroup ${resourceGroup().name} -azureLocation ${location} -stagingStorageAccountName ${stagingStorageAccountName} -workspaceName ${workspaceName} -templateBaseUrl ${templateBaseUrl} -registerCluster ${registerCluster} -deployAKSHCI ${deployAKSHCI} -deployResourceBridge ${deployResourceBridge} -natDNS ${natDNS} -rdpPort ${rdpPort} -autoDeployClusterResource ${autoDeployClusterResource} -autoUpgradeClusterResource ${autoUpgradeClusterResource}'
-    }
-  }
-}
-
 output adminUsername string = windowsAdminUsername
 output publicIP string = deployBastion == false ? concat(publicIpAddress.properties.ipAddress) : ''

@@ -25,6 +25,8 @@ on:
 jobs:
   Build-HCI:
     runs-on: ubuntu-latest
+    env:
+      templateBaseUrl: 'https://raw.githubusercontent.com/bindsi/azure_arc/feature/automateHCI/azure_jumpstart_hcibox/'
     outputs:
       configurationName: ${{ steps.createImage.outputs.configurationName }}
       vmSize: ${{ steps.createImage.outputs.vmSize }}
@@ -61,3 +63,17 @@ jobs:
                         deployBastion=false \
                         autoDeployClusterResource=${{ inputs.createCluster }} \
                         autoUpgradeClusterResource=false
+
+    - name: Run az deployment for image creation
+      id: bootstrap
+      run: |
+        echo "Bootstrapping..."
+
+        az vm extension set \
+        --resource-group $resourceGroup \
+        --vm-name $vmName \
+        --name CustomScriptExtension \
+        --publisher Microsoft.Compute \
+        --force-update \
+        --settings "{\"fileUris\": [\"$templateBaseUrl/artifacts/PowerShell/Bootstrap.ps1\"], \"commandToExecute\":\"powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1 -adminUsername ${windowsAdminUsername} -adminPassword ${encodedPassword} -spnClientId ${spnClientId} -spnClientSecret ${spnClientSecret} -spnTenantId ${spnTenantId} -subscriptionId ${subscription().subscriptionId} -spnProviderId ${spnProviderId} -resourceGroup ${resourceGroup().name} -azureLocation ${location} -stagingStorageAccountName ${stagingStorageAccountName} -workspaceName ${workspaceName} -templateBaseUrl ${templateBaseUrl} -registerCluster ${registerCluster} -deployAKSHCI ${deployAKSHCI} -deployResourceBridge ${deployResourceBridge} -natDNS ${natDNS} -rdpPort ${rdpPort} -autoDeployClusterResource ${autoDeployClusterResource} -autoUpgradeClusterResource ${autoUpgradeClusterResource} \
+        \"}"
