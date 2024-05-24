@@ -27,10 +27,10 @@ param logAnalyticsWorkspaceName string
 param natDNS string = '8.8.8.8'
 
 @description('Target GitHub account')
-param githubAccount string = 'microsoft'
+param githubAccount string = 'bindsi'
 
 @description('Target GitHub branch')
-param githubBranch string = 'main'
+param githubBranch string = 'feature/automateHCI'
 
 @description('Choice to deploy Bastion to connect to the client VM')
 param deployBastion bool = false
