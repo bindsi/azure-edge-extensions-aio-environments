@@ -43,7 +43,7 @@ jobs:
         echo "Running az deployment group create..."
 
         tenantId="$(az account show --query tenantId -o tsv)"
-        logAnalyticsName="$(echo $resourceGroupName)"
+        logAnalyticsName=$(echo "$resourceGroupName")
         echo "logAnalyticsName: $logAnalyticsName"
         az group create --name ${{ inputs.resourceGroupName }} --location ${{ inputs.location }}
 
