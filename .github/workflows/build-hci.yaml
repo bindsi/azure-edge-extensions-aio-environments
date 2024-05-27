@@ -26,7 +26,7 @@ jobs:
   Build-HCI:
     runs-on: ubuntu-latest
     env:
-      templateBaseUrl: 'https://raw.githubusercontent.com/bindsi/azure_arc/feature/automateHCI/azure_jumpstart_hcibox/'
+      templateBaseUrl: 'https://raw.githubusercontent.com/bindsi/azure-edge-extensions-aio-environments/feature/automateHCI/azure_jumpstart_hcibox/'
     outputs:
       configurationName: ${{ steps.createImage.outputs.configurationName }}
       vmSize: ${{ steps.createImage.outputs.vmSize }}
