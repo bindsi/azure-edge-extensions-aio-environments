@@ -68,8 +68,8 @@ jobs:
         echo "Bootstrapping..."
 
         az vm extension set \
-        --resource-group $resourceGroup \
-        --vm-name $vmName \
+        --resource-group ${{ inputs.resourceGroupName }} \
+        --vm-name HCIBox-Client \
         --name CustomScriptExtension \
         --publisher Microsoft.Compute \
         --force-update \
