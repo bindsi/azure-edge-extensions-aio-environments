@@ -26,6 +26,7 @@ $Env:AZURE_CONFIG_DIR = $cliDir.FullName
 # Login to Azure CLI with service principal provided by user
 Write-Header "Az CLI Login"
 az login --service-principal --username $Env:spnClientID --password=$Env:spnClientSecret --tenant $Env:spnTenantId
+az account show
 
 # Login to Azure PowerShell with service principal provided by user
 $spnpassword = ConvertTo-SecureString $Env:spnClientSecret -AsPlainText -Force
