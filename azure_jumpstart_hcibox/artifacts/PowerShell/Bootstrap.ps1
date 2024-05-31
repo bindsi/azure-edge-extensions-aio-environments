@@ -40,6 +40,14 @@ param (
 [System.Environment]::SetEnvironmentVariable('autoUpgradeClusterResource', $autoUpgradeClusterResource,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('registerCluster', $registerCluster,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('natDNS', $natDNS,[System.EnvironmentVariableTarget]::Machine)
+
+#######################################################################
+## Setup basic environment
+#######################################################################
+# Copy PowerShell Profile and Reload
+Invoke-WebRequest ($templateBaseUrl + "artifacts/PowerShell/PSProfile.ps1") -OutFile $PsHome\Profile.ps1
+.$PsHome\Profile.ps1
+
 Write-Header $Env:adminUsername
 Write-Header $Env:spnClientID
 Write-Header $Env:spnClientSecret
@@ -58,12 +66,6 @@ Write-Header $Env:autoUpgradeClusterResource
 Write-Header $Env:registerCluster
 Write-Header $Env:natDNS
 Write-Header $Env:rdpPort
-#######################################################################
-## Setup basic environment
-#######################################################################
-# Copy PowerShell Profile and Reload
-Invoke-WebRequest ($templateBaseUrl + "artifacts/PowerShell/PSProfile.ps1") -OutFile $PsHome\Profile.ps1
-.$PsHome\Profile.ps1
 
 # Creating HCIBox path
 $HCIPath = "C:\HCIBox"
