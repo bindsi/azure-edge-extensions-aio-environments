@@ -40,7 +40,24 @@ param (
 [System.Environment]::SetEnvironmentVariable('autoUpgradeClusterResource', $autoUpgradeClusterResource,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('registerCluster', $registerCluster,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('natDNS', $natDNS,[System.EnvironmentVariableTarget]::Machine)
-
+Write-Header $Env:adminUsername
+Write-Header $Env:spnClientID
+Write-Header $Env:spnClientSecret
+Write-Header $Env:spnTenantId
+Write-Header $Env:spnProviderId
+Write-Header $Env:subscriptionId
+Write-Header $Env:resourceGroup
+Write-Header $Env:azureLocation
+Write-Header $Env:stagingStorageAccountName
+Write-Header $Env:workspaceName
+Write-Header $Env:templateBaseUrl
+Write-Header $Env:deployAKSHCI
+Write-Header $Env:deployResourceBridge
+Write-Header $Env:autoDeployClusterResource
+Write-Header $Env:autoUpgradeClusterResource
+Write-Header $Env:registerCluster
+Write-Header $Env:natDNS
+Write-Header $Env:rdpPort
 #######################################################################
 ## Setup basic environment
 #######################################################################
