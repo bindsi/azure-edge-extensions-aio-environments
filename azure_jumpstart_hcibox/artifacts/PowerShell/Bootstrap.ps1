@@ -48,24 +48,24 @@ param (
 Invoke-WebRequest ($templateBaseUrl + "artifacts/PowerShell/PSProfile.ps1") -OutFile $PsHome\Profile.ps1
 .$PsHome\Profile.ps1
 
-Write-Header $Env:adminUsername
-Write-Header $Env:spnClientID
-Write-Header $Env:spnClientSecret
-Write-Header $Env:spnTenantId
-Write-Header $Env:spnProviderId
-Write-Header $Env:subscriptionId
-Write-Header $Env:resourceGroup
-Write-Header $Env:azureLocation
-Write-Header $Env:stagingStorageAccountName
-Write-Header $Env:workspaceName
-Write-Header $Env:templateBaseUrl
-Write-Header $Env:deployAKSHCI
-Write-Header $Env:deployResourceBridge
-Write-Header $Env:autoDeployClusterResource
-Write-Header $Env:autoUpgradeClusterResource
-Write-Header $Env:registerCluster
-Write-Header $Env:natDNS
-Write-Header $Env:rdpPort
+Write-Host $Env:adminUsername
+Write-Host $Env:spnClientID
+Write-Host $Env:spnClientSecret
+Write-Host $Env:spnTenantId
+Write-Host $Env:spnProviderId
+Write-Host $Env:subscriptionId
+Write-Host $Env:resourceGroup
+Write-Host $Env:azureLocation
+Write-Host $Env:stagingStorageAccountName
+Write-Host $Env:workspaceName
+Write-Host $Env:templateBaseUrl
+Write-Host $Env:deployAKSHCI
+Write-Host $Env:deployResourceBridge
+Write-Host $Env:autoDeployClusterResource
+Write-Host $Env:autoUpgradeClusterResource
+Write-Host $Env:registerCluster
+Write-Host $Env:natDNS
+Write-Host $Env:rdpPort
 
 # Creating HCIBox path
 $HCIPath = "C:\HCIBox"
