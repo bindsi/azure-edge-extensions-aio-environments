@@ -1,9 +1,13 @@
+Param(
+    # groupObjectID to the object ID of the Microsoft Entra ID group that will be granted access to the AKS workload cluster. 
+    [string]
+    [Parameter(mandatory=$true)]
+    $groupObjectID
+)
+
 $WarningPreference = "SilentlyContinue"
 $ErrorActionPreference = "Stop" 
 $ProgressPreference = 'SilentlyContinue'
-
-# Set groupObjectID to the object ID of the Microsoft Entra ID group that will be granted access to the AKS workload cluster. 
-#$groupObjectID="aaaaaaa-bbbb-cccc-db62-fffssfff" # Uncomment this line and change the value to your Microsoft Entra ID group id 
 
 # Set paths
 $Env:HCIBoxDir = "C:\HCIBox"
@@ -17,12 +21,12 @@ $domainCred = new-object -typename System.Management.Automation.PSCredential `
 
 # Generate credential objects
 Write-Host 'Creating credentials and connecting to Azure'
-$subId = $env:subscriptionId
-$rg = $env:resourceGroup
-$spnClientId = $env:spnClientId
-$spnSecret = $env:spnClientSecret
-$spnTenantId = $env:spnTenantId
-$location = "eastus"
+$subId = $Env:subscriptionId
+$rg = $Env:resourceGroup
+$spnClientId = $Env:spnClientId
+$spnSecret = $Env:spnClientSecret
+$spnTenantId = $Env:spnTenantId
+$location = $Env:azureLocation
 $lnetName = "hcibox-aks-lnet-vlan110"
 $customLocName = $HCIBoxConfig.rbCustomLocationName
 $WarningPreference = "SilentlyContinue"

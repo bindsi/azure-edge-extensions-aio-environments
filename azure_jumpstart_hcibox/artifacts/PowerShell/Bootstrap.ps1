@@ -241,3 +241,5 @@ $logSuppress = Get-Content "$($HCIBoxConfig.Paths.LogsDir)\Bootstrap.log" | Wher
 $logSuppress | Set-Content "$($HCIBoxConfig.Paths.LogsDir)\Bootstrap.log" -Force
 
 & "$HCIPath\HCIBoxLogonScript.ps1"
+
+$ $HCIPath\Configure-AKSWorkloadCluster.ps1 -GroupObjectID $groupObjectID
