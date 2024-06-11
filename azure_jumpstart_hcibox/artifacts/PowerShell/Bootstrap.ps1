@@ -17,7 +17,8 @@ param (
     [string]$natDNS,
     [string]$rdpPort,
     [string]$autoDeployClusterResource,
-    [string]$autoUpgradeClusterResource
+    [string]$autoUpgradeClusterResource,
+    [string]$groupObjectID
 )
 
 [System.Environment]::SetEnvironmentVariable('adminUsername', $adminUsername,[System.EnvironmentVariableTarget]::Machine)
