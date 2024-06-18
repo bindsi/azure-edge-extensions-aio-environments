@@ -68,17 +68,6 @@ if ($null -eq $roleAssignment) {
     New-AzRoleAssignment -RoleDefinitionName "Storage Account Contributor" -ServicePrincipalName $Env:spnClientID -Scope "/subscriptions/$Env:subscriptionId/resourceGroups/$Env:resourceGroup"
 }
 
-#############################################################
-# Install VSCode extensions
-#############################################################
-
-# Write-Host "[$(Get-Date -Format t)] INFO: Installing VSCode extensions: " + ($HCIBoxConfig.VSCodeExtensions -join ', ') -ForegroundColor Gray
-# foreach ($extension in $HCIBoxConfig.VSCodeExtensions) {
-#     $WarningPreference = "SilentlyContinue"
-#     code --install-extension $extension 2>&1 | Out-File -Append -FilePath ($HCIBoxConfig.Paths.LogsDir + "\Tools.log")
-#     $WarningPreference = "Continue"
-# }
-
 #####################################################################
 # Configure virtualization infrastructure
 #####################################################################
@@ -124,10 +113,6 @@ Write-Header "Changing Wallpaper"
 $imgPath="$Env:HCIBoxDir\wallpaper.png"
 Add-Type $code
 [Win32.Wallpaper]::SetWallpaper($imgPath)
-
-# Removing the LogonScript Scheduled Task so it won't run on next reboot
-# Write-Header "Removing Logon Task"
-# Unregister-ScheduledTask -TaskName "HCIBoxLogonScript" -Confirm:$false
 
 # Executing the deployment logs bundle PowerShell script in a new window
 Write-Header "Uploading Log Bundle"

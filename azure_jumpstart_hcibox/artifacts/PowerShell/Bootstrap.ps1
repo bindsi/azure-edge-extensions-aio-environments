@@ -49,25 +49,6 @@ param (
 Invoke-WebRequest ($templateBaseUrl + "artifacts/PowerShell/PSProfile.ps1") -OutFile $PsHome\Profile.ps1
 .$PsHome\Profile.ps1
 
-Write-Host "$Env:adminUsername"
-Write-Host "$Env:spnClientID"
-Write-Host "$Env:spnClientSecret"
-Write-Host "$Env:spnTenantId"
-Write-Host "$Env:spnProviderId"
-Write-Host "$Env:subscriptionId"
-Write-Host "$Env:resourceGroup"
-Write-Host "$Env:azureLocation"
-Write-Host "$Env:stagingStorageAccountName"
-Write-Host "$Env:workspaceName"
-Write-Host "$Env:templateBaseUrl"
-Write-Host "$Env:deployAKSHCI"
-Write-Host "$Env:deployResourceBridge"
-Write-Host "$Env:autoDeployClusterResource"
-Write-Host "$Env:autoUpgradeClusterResource"
-Write-Host "$Env:registerCluster"
-Write-Host "$Env:natDNS"
-Write-Host "$Env:rdpPort"
-
 # Creating HCIBox path
 $HCIPath = "C:\HCIBox"
 [System.Environment]::SetEnvironmentVariable('HCIBoxDir', $HCIPath,[System.EnvironmentVariableTarget]::Machine)
@@ -175,12 +156,6 @@ Write-Host "Enabling CredSSP."
 Enable-WSManCredSSP -Role Server -Force | Out-Null
 Enable-WSManCredSSP -Role Client -DelegateComputer $Env:COMPUTERNAME -Force | Out-Null
 
-# Creating scheduled task for HCIBoxLogonScript.ps1
-# Write-Host "Creating scheduled task for HCIBoxLogonScript.ps1"
-# $Trigger = New-ScheduledTaskTrigger -AtLogOn
-# $Action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument $HCIPath\HCIBoxLogonScript.ps1
-# Register-ScheduledTask -TaskName "HCIBoxLogonScript" -Trigger $Trigger -User $adminUsername -Action $Action -RunLevel "Highest" -Force
-
 # Disable Edge 'First Run' Setup
 Write-Host "Configuring Microsoft Edge."
 $edgePolicyRegistryPath  = 'HKLM:SOFTWARE\Policies\Microsoft\Edge'
@@ -228,12 +203,6 @@ if (($rdpPort -ne $null) -and ($rdpPort -ne "") -and ($rdpPort -ne "3389"))
 
     Write-Host "RDP port configuration complete."
 }
-
-# Install Hyper-V and reboot
-# Write-Header "Installing Hyper-V."
-# Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
-# Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-# Install-WindowsFeature -Name Hyper-V -IncludeAllSubFeature -IncludeManagementTools -Restart
 
 # Clean up Bootstrap.log
 Write-Header "Clean up Bootstrap.log."

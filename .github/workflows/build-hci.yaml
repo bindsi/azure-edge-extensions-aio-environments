@@ -71,7 +71,6 @@ jobs:
                         deployBastion=false \
                         autoDeployClusterResource=${{ inputs.createCluster }} \
                         autoUpgradeClusterResource=false --query properties.outputs.storageAccountName.value -o tsv)
-        # stagingStorageAccountName="hciboxgeo2vvwttiqdw"
 
         echo "Restarting VM..."
         az vm restart -g ${{ inputs.resourceGroupName }} -n HCIBox-Client
