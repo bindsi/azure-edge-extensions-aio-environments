@@ -45,12 +45,13 @@ jobs:
         creds: '{"clientId":"${{ secrets.AZURE_SP_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_SP_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
     - name: Configure environment
       run: |
-        echo "Making sure necessary providers are registered..."
-        az config set extension.use_dynamic_install=yes_without_prompt
-        az provider register --namespace Microsoft.Insights --wait
-        az provider register --namespace Microsoft.AlertsManagement --wait
-        az extension add --name amg
-    - name: Create Azure Monitor and Grafana resources
-      run: bash ${GITHUB_WORKSPACE}/scripts/configure-azmon-grafana.sh -g $resourceGroup -m $monitorName -d $grafanaName -c $clusterName
-    - name: Configure hostmemusage collection
-      run: bash ${GITHUB_WORKSPACE}/scripts/configure-vm-hostmemusage-collector.sh -v $vmName -g $resourceGroup -l $logAnalytics -m $monitorName
+        echo $resourceGroup
+        # echo "Making sure necessary providers are registered..."
+        # az config set extension.use_dynamic_install=yes_without_prompt
+        # az provider register --namespace Microsoft.Insights --wait
+        # az provider register --namespace Microsoft.AlertsManagement --wait
+        # az extension add --name amg
+    # - name: Create Azure Monitor and Grafana resources
+    #   run: bash ${GITHUB_WORKSPACE}/scripts/configure-azmon-grafana.sh -g $resourceGroup -m $monitorName -d $grafanaName -c $clusterName
+    # - name: Configure hostmemusage collection
+    #   run: bash ${GITHUB_WORKSPACE}/scripts/configure-vm-hostmemusage-collector.sh -v $vmName -g $resourceGroup -l $logAnalytics -m $monitorName
