@@ -2,6 +2,7 @@ param (
     [string]$adminUsername,
     [string]$adminPassword,
     [string]$spnClientId,
+    [string]$spnObjectId,
     [string]$spnClientSecret,
     [string]$spnProviderId,
     [string]$spnTenantId,
@@ -23,6 +24,7 @@ param (
 
 [System.Environment]::SetEnvironmentVariable('adminUsername', $adminUsername,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('spnClientID', $spnClientId,[System.EnvironmentVariableTarget]::Machine)
+[System.Environment]::SetEnvironmentVariable('spnObjectID', $spnObjectId,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('spnClientSecret', $spnClientSecret,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('spnTenantId', $spnTenantId,[System.EnvironmentVariableTarget]::Machine)
 [System.Environment]::SetEnvironmentVariable('spnProviderId', $spnProviderId,[System.EnvironmentVariableTarget]::Machine)
@@ -213,3 +215,7 @@ $logSuppress | Set-Content "$($HCIBoxConfig.Paths.LogsDir)\Bootstrap.log" -Force
 & "$HCIPath\HCIBoxLogonScript.ps1"
 
 & $HCIPath\Configure-AKSWorkloadCluster.ps1 -groupObjectID $groupObjectID
+
+& "$HCIPath\Install-HostMemCollector.ps1"
+
+& "$HCIPath\Install-AIO.ps1"
