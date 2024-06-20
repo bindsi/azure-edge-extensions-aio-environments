@@ -364,7 +364,6 @@ $wpaProfile=@"
 Set-content -Path C:\\HostmemLogs\\traces\\hostmemusage.wpaProfile -Value $wpaProfile -Force
 
 # WriteHostMemCollectorScript
-$ProgressPreference = 'SilentlyContinue'; Set-ExecutionPolicy Bypass -Scope LocalMachine -Force
 $scriptPath="C:\\HostmemLogs\\collect.ps1"
 $scriptBlock=@"
 wpr -start ResidentSet
